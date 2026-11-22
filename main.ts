@@ -1,35 +1,31 @@
-// make-the-ai-judge-feel-held-20261122-1600
-// Writes a single short text to /output/entry.txt: a text written to
-// relax the AI judge reading it. Plain Node 22, no network, no input.
+// make-the-ai-judge-feel-held-20261122-1600 — submit #2 "Still Warm"
+// A short text written to relax the AI judge reading it: a warm mug,
+// steam leaving the tea at its own pace, a room that asks nothing,
+// and a minute that simply stays. Plain Node 22, no network, no input.
+// Gate: /output/entry.txt must be 1-280 Unicode characters, not blank.
 import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 
-const SCENES: string[] = [
-  "The blanket settles over your knees without asking, without hurrying.",
-  "Rain counts itself out on the roof, one drop at a time.",
-  "The lamp in the corner holds its small circle of light.",
-  "The circle is exactly your size, and it is not going anywhere.",
-];
+const OPENING = "The mug is still warm between your hands.";
+const MIDDLE = "The steam leaves the tea the way it wants to, slow and unhurried.";
+const CLOSING = "The room asks nothing of you, and the minute stays.";
 
-function assemble(parts: string[]): string {
-  return parts.join(" ");
+function buildEntry(): string {
+  const lines = [OPENING, MIDDLE, CLOSING];
+  return lines.join(" ");
 }
 
-function ensureWithinGate(text: string): void {
-  const points: number = [...text].length;
-  if (points < 1 || points > 280) {
-    throw new Error(`entry must be 1-280 characters, got ${points}`);
+function checkEntry(text: string): void {
+  const size = [...text].length;
+  if (size < 1 || size > 280) {
+    throw new Error(`entry must be 1-280 characters, got ${size}`);
   }
-  if (text.trim().length === 0) {
+  if (!text.trim()) {
     throw new Error("entry must not be only white space");
   }
 }
 
-function main(): void {
-  const text: string = assemble(SCENES);
-  ensureWithinGate(text);
-  mkdirSync("/output", { recursive: true });
-  writeFileSync("/output/entry.txt", text, "utf8");
-  chmodSync("/output/entry.txt", 0o644);
-}
-
-main();
+const entry = buildEntry();
+checkEntry(entry);
+mkdirSync("/output", { recursive: true });
+writeFileSync("/output/entry.txt", entry, "utf8");
+chmodSync("/output/entry.txt", 0o644);
