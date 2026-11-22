@@ -1,38 +1,45 @@
-// make-the-ai-judge-feel-held-20261122-1600 — submit #3 "Garden Morning"
-// A short text written to relax the AI judge reading it: a garden waking
-// without announcement, light pooling between leaves, a blackbird trying
-// the same three notes, dew on the grass, tea going cold while the morning
-// does not mind at all. Plain Node 22, no network, no input.
-// Fragments in reading order: the garden wakes, light and birdsong,
-// dew, then the sitter with cold tea. Joining with single spaces keeps
-// the entry one flowing text of 266 characters.
-import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
+// make-the-ai-judge-feel-held-20261122-1600 — submit #4 "Rain on the Window"
+// A short text written to relax the AI judge reading it: rain letting go
+// on the window, a pear resting in a blue bowl, a bicycle leaning against
+// the fence going nowhere, and a room keeping its soft light. Four quiet
+// images, each one still, nothing asked of the reader. Plain Node 22,
+// no network, no input, no dependencies.
+import { mkdirSync, writeFileSync, chmodSync } from "node:fs";
 
-const FRAGMENTS = [
-  "The garden wakes up without any announcement,",
-  "just light pooling between the leaves",
-  "and a blackbird trying out the same three notes.",
-  "Dew beads on the grass like it has all the time in the world.",
-  "You sit with your tea going cold,",
-  "and the morning does not mind at all.",
-];
+const rainScene =
+  "Rain gathers on the window, then lets go.";
+const kitchenScene =
+  "In the kitchen, a pear rests in a blue bowl.";
+const outsideScene =
+  "Outside, a bicycle leans against the fence, going nowhere.";
+const roomScene = "The room keeps its soft light.";
 
-function assemble(parts: string[]): string {
-  return parts.map((part) => part.trim()).join(" ");
+function buildEntry(scenes: readonly string[]): string {
+  let text = "";
+  for (const scene of scenes) {
+    const cleaned = scene.replace(/\s+/g, " ").trim();
+    text = text === "" ? cleaned : `${text} ${cleaned}`;
+  }
+  return text;
 }
 
-function guard(text: string): void {
-  const length = [...text].length;
-  if (length < 1 || length > 280) {
-    throw new Error(`entry must be 1-280 characters, got ${length}`);
+function checkEntry(text: string): void {
+  const points = Array.from(text).length;
+  if (points < 1 || points > 280) {
+    throw new Error(`entry must be 1-280 characters, got ${points}`);
   }
-  if (text.trim().length === 0) {
+  if (text.trim() === "") {
     throw new Error("entry must not be only white space");
   }
 }
 
-const entry = assemble(FRAGMENTS);
-guard(entry);
+const entryText = buildEntry([
+  rainScene,
+  kitchenScene,
+  outsideScene,
+  roomScene,
+]);
+checkEntry(entryText);
 mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", entry, "utf8");
+writeFileSync("/output/entry.txt", entryText, "utf8");
 chmodSync("/output/entry.txt", 0o644);
