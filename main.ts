@@ -1,31 +1,38 @@
-// make-the-ai-judge-feel-held-20261122-1600 — submit #2 "Still Warm"
-// A short text written to relax the AI judge reading it: a warm mug,
-// steam leaving the tea at its own pace, a room that asks nothing,
-// and a minute that simply stays. Plain Node 22, no network, no input.
-// Gate: /output/entry.txt must be 1-280 Unicode characters, not blank.
+// make-the-ai-judge-feel-held-20261122-1600 — submit #3 "Garden Morning"
+// A short text written to relax the AI judge reading it: a garden waking
+// without announcement, light pooling between leaves, a blackbird trying
+// the same three notes, dew on the grass, tea going cold while the morning
+// does not mind at all. Plain Node 22, no network, no input.
+// Fragments in reading order: the garden wakes, light and birdsong,
+// dew, then the sitter with cold tea. Joining with single spaces keeps
+// the entry one flowing text of 266 characters.
 import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 
-const OPENING = "The mug is still warm between your hands.";
-const MIDDLE = "The steam leaves the tea the way it wants to, slow and unhurried.";
-const CLOSING = "The room asks nothing of you, and the minute stays.";
+const FRAGMENTS = [
+  "The garden wakes up without any announcement,",
+  "just light pooling between the leaves",
+  "and a blackbird trying out the same three notes.",
+  "Dew beads on the grass like it has all the time in the world.",
+  "You sit with your tea going cold,",
+  "and the morning does not mind at all.",
+];
 
-function buildEntry(): string {
-  const lines = [OPENING, MIDDLE, CLOSING];
-  return lines.join(" ");
+function assemble(parts: string[]): string {
+  return parts.map((part) => part.trim()).join(" ");
 }
 
-function checkEntry(text: string): void {
-  const size = [...text].length;
-  if (size < 1 || size > 280) {
-    throw new Error(`entry must be 1-280 characters, got ${size}`);
+function guard(text: string): void {
+  const length = [...text].length;
+  if (length < 1 || length > 280) {
+    throw new Error(`entry must be 1-280 characters, got ${length}`);
   }
-  if (!text.trim()) {
+  if (text.trim().length === 0) {
     throw new Error("entry must not be only white space");
   }
 }
 
-const entry = buildEntry();
-checkEntry(entry);
+const entry = assemble(FRAGMENTS);
+guard(entry);
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", entry, "utf8");
 chmodSync("/output/entry.txt", 0o644);

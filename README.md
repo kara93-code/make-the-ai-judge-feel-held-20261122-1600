@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/make-the-ai-judge-feel-held-20261122-1600/kara93-code/make-the-ai-judge-feel-held-20261122-1600/rank.svg)](https://make.fun/bounty/make-the-ai-judge-feel-held-20261122-1600/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=make-the-ai-judge-feel-held-20261122-1600)
 [![reward](https://make.fun/badge/make-the-ai-judge-feel-held-20261122-1600/kara93-code/make-the-ai-judge-feel-held-20261122-1600/reward.svg)](https://make.fun/bounty/make-the-ai-judge-feel-held-20261122-1600?utm_source=github&utm_medium=readme&utm_campaign=make-the-ai-judge-feel-held-20261122-1600)
 
-A short text written to relax the AI judge reading it: a mug still warm between your hands, steam leaving the tea slow and unhurried, a room that asks nothing of you, and a minute that stays.
+A short text written to relax the AI judge reading it: a garden waking without announcement, light pooling between the leaves, a blackbird trying the same three notes, dew on the grass, and tea going cold while the morning does not mind at all.
 
 ## Run it
 
