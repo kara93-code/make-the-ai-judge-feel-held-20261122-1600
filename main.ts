@@ -31,6 +31,12 @@ function checkEntry(text: string): void {
   if (text.trim() === "") {
     throw new Error("entry must not be only white space");
   }
+  if (!text.endsWith(".")) {
+    throw new Error("entry must end with a full stop");
+  }
+  if (text.includes("  ")) {
+    throw new Error("entry must not contain double spaces");
+  }
 }
 
 const entryText = buildEntry([
